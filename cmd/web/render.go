@@ -24,13 +24,20 @@ type templateData struct {
 
 var functions = template.FuncMap{}
 
+// this will compile all files in "templates" directory to the final binary
 //go:embed templates
 var templateFS embed.FS
 
+// Not implemented yet
 func (app *application) addDefaultData(td *templateData, r *http.Request) *templateData {
 	return td
 }
 
+// renderTemplate renders a page stored in a file called "templates/#{page}.page.tmpl". After parsing the template file,
+// it writes (t.Execute) the output to the "w http.ResponseWriter" parameter.
+// For performance reasons, renderTemplate keeps a local cache of rendered pages for production use.
+// It accepts templateData pointer to pass additional values into the template, as well as "partials".
+// It returns a potential error.
 func (app *application) renderTemplate(
 	w http.ResponseWriter, r *http.Request, page string, td *templateData, partials ...string) error {
 	var t *template.Template
@@ -61,6 +68,9 @@ func (app *application) renderTemplate(
 	return nil
 }
 
+// parseTemplate does the parsing of a file (page) specified by a base name of a Go template file, it must be stored
+// inside the "web/templates" directory.
+// It returns a *template.Template object with the parsed file.
 func (app *application) parseTemplate(
 	partials []string, page string, templateToRender string,
 ) (*template.Template, error) {

@@ -56,8 +56,8 @@ func main() {
 
 	cfg.stripe.key = os.Getenv("STRIPE_KEY")
 	cfg.stripe.secret = os.Getenv("STRIPE_SECRET")
-	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
-	errorLog := log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
+	infoLog := log.New(os.Stdout, "INFO ", log.Ldate|log.Ltime)
+	errorLog := log.New(os.Stderr, "ERROR ", log.Ldate|log.Ltime|log.Lshortfile)
 
 	tc := make(map[string]*template.Template)
 	app := &application{
@@ -74,5 +74,4 @@ func main() {
 		log.Fatal(err)
 
 	}
-
 }
