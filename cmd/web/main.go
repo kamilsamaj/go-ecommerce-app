@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/joho/godotenv"
 	"html/template"
 	"log"
 	"net/http"
@@ -54,6 +55,14 @@ func main() {
 	flag.StringVar(&cfg.api, "api", "http://localhost:4001", "URL to API")
 	flag.Parse()
 
+	// try to load env variables from .env file
+	err := godotenv.Load()
+	if err != nil {
+		log.Println("No .env file found, skipping it ...")
+	} else {
+		log.Println("Environment variables loaded from the .env file")
+	}
+
 	cfg.stripe.key = os.Getenv("STRIPE_KEY")
 	cfg.stripe.secret = os.Getenv("STRIPE_SECRET")
 	infoLog := log.New(os.Stdout, "INFO ", log.Ldate|log.Ltime)
@@ -68,7 +77,7 @@ func main() {
 		version:       version,
 	}
 
-	err := app.serve()
+	err = app.serve()
 	if err != nil {
 		app.errorLog.Println(err)
 		log.Fatal(err)

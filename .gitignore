@@ -1,5 +1,7 @@
-web
+tmp
+main
 bin
+.env
 # Binaries for programs and plugins
 *.exe
 *.exe~

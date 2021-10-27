@@ -10,5 +10,10 @@ a handler and starts it.
 
 It listens and accepts requests on http://localhost:4000.
 
+## Initial setup
+* Set the `STRIPE_KEY` and `STRIPE_SECRET` environment variables first. For development purposes, you can create a
+`.env` file in the root of this project and set the variables there. Check the Godotenv's
+[Usage docs](https://github.com/joho/godotenv#usage) for details.
+
 ## Resources
 https://www.udemy.com/course/building-web-applications-with-go-intermediate-level/
